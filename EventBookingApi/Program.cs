@@ -1,9 +1,22 @@
+using EventBookingApi.Services;
 using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+//Caching
+builder.Services.AddMemoryCache();
+
+// Rate Limiting
+
+// Auth
+
+// CORS
+
+// Custom Services
+builder.Services.AddSingleton<IEventService, EventService>();
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
