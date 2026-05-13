@@ -17,6 +17,8 @@ builder.Services.AddMemoryCache();
 
 // Custom Services
 builder.Services.AddSingleton<IEventService, EventService>();
+builder.Services.AddSingleton<ICustomerService, CustomerService>();
+builder.Services.AddSingleton<IBookingService, BookingService>();
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));

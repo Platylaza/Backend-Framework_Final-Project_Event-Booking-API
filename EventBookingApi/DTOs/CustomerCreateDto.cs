@@ -6,7 +6,7 @@ namespace EventBookingApi.DTOs
     {
         [Required]
         [StringLength(100)]
-        public string Name = string.Empty;
+        public string Name {get; set;} = string.Empty;
 
         [Required]
         [EmailAddress]

@@ -5,16 +5,13 @@ namespace EventBookingApi.DTOs
     public class BookingCreateDto
     {
         [Required]
-        public int Id;
+        public int EventId {get; set;}
 
         [Required]
-        public int EventId;
-
-        [Required]
-        public int CustomerId;
+        public int CustomerId {get; set;}
 
         [Required]
         [Range(1, 1000)]
-        public int NumberOfTickets;
+        public int NumberOfTickets {get; set;}
     }
 }

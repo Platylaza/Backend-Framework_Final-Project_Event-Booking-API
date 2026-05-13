@@ -6,14 +6,14 @@ namespace EventBookingApi.DTOs
     {
         [Required]
         [StringLength(100)]
-        public string Name = string.Empty;
+        public string Name {get; set;} = string.Empty;
 
         [Required]
-        public DateOnly Date;
+        public DateOnly Date {get; set;}
 
         [Required]
         [StringLength(100)]
-        public string Location = string.Empty;
+        public string Location {get; set;} = string.Empty;
 
         [Required]
         [Range(1, 1000)]
