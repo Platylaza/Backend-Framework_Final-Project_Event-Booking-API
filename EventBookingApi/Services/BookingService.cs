@@ -43,37 +43,31 @@ namespace EventBookingApi.Services
         public Booking Add(Booking newBooking)
         {
             // Get Event
-            int eventId = newBooking.EventId;
-            var eventObj = _eventService.GetById(eventId); 
-            if (eventObj == null)
-            {
-                newBooking.Error = new BookingError {
-                    Message = "Event Not Found",
-                    NumberOfTicketsAvailable = -1
-                }; 
-                return newBooking;
-            }
+            var eventToBook = _eventService.GetById(newBooking.EventId); 
+            if (eventToBook == null)
+                return FormatBookingError(newBooking, "Event Not Found.", "", -1);
 
-            // Prevent Overbooking
+            // Get Number Of Remaining Tickets
             int numberOfTicketsForEvent = _bookings
                 .Where(b => b.EventId == newBooking.EventId)
                 .Sum(b => b.NumberOfTickets);
 
-            if (numberOfTicketsForEvent + newBooking.NumberOfTickets > eventObj.Capacity) 
-            {
-                newBooking.Error = new BookingError {
-                    Message = "There is no room for those tickets.",
-                    NumberOfTicketsAvailable = eventObj.Capacity - numberOfTicketsForEvent
-                };  
-                return newBooking;
-            }
+            int numberOfTicketsAvailable = eventToBook.Capacity - numberOfTicketsForEvent;
+
+            // Prevent Booking After Date
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            if (eventToBook.Date < today)
+                return FormatBookingError(newBooking, "Booking Past Event", "The event you are trying to book has already happened.", numberOfTicketsAvailable);
+
+            // Prevent Overbooking
+            if (numberOfTicketsAvailable < 1)
+                return FormatBookingError(newBooking, "Event Overbooked", "The event has reached maximum capacity or cannot accommodate this many tickets.", numberOfTicketsAvailable);
 
             // Add Booking
             newBooking.Id = _bookings.Max(e => e.Id) + 1;
             _bookings.Add(newBooking);
 
             _cache.Remove(BookingsCacheKey);
-
             return newBooking;
         }
 
@@ -96,5 +90,17 @@ namespace EventBookingApi.Services
             _cache.Remove(BookingsCacheKey);
             return _bookings.Remove(booking);
         }
+
+#region Error Handling
+        Booking FormatBookingError(Booking newBooking, string title, string detail, int numberOfTicketsAvailable)
+        {
+            newBooking.Error = new BookingError {
+                    Title = title,
+                    Detail = detail,
+                    NumberOfTicketsAvailable = numberOfTicketsAvailable
+                };  
+            return newBooking;
+        }
+#endregion
     }
 }

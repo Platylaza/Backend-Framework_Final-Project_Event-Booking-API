@@ -64,9 +64,9 @@ namespace EventBookingApi.Controllers
                     return NotFound();
                 else
                     return Problem(
-                    detail: "The event has reached maximum capacity or cannot accommodate this many tickets.",
-                            statusCode: StatusCodes.Status409Conflict,
-                        title: "Event Overbooked"
+                        detail: created.Error.Detail,
+                        statusCode: StatusCodes.Status409Conflict,
+                        title: created.Error.Title
                     );
             }
 

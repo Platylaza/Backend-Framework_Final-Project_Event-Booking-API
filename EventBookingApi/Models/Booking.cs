@@ -11,7 +11,8 @@ namespace EventBookingApi.Models
 
     public class BookingError 
     {
-        public string Message { get; set; }
+        public string Title { get; set; }
+        public string Detail { get; set; }
         public int NumberOfTicketsAvailable { get; set; }
     }
 }
