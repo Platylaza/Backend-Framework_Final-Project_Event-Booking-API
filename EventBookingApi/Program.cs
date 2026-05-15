@@ -1,4 +1,5 @@
 using EventBookingApi.Services;
+using EventBookingApi.Middleware;
 using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +13,6 @@ builder.Services.AddMemoryCache();
 // Rate Limiting
 
 // Auth
-
-// CORS
 
 // Custom Services
 builder.Services.AddSingleton<IEventService, EventService>();
@@ -52,7 +51,11 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
+app.UseMiddleware<RequestLoggingMiddleware>();
+
 app.UseHttpsRedirection();
+
+app.UseMiddleware<GlobalErrorHandlingMiddleware>();
 
 app.UseAuthorization();
 
