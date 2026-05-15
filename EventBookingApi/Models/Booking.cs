@@ -14,5 +14,6 @@ namespace EventBookingApi.Models
         public string Title { get; set; }
         public string Detail { get; set; }
         public int NumberOfTicketsAvailable { get; set; }
+        public int StatusCode { get; set; }
     }
 }

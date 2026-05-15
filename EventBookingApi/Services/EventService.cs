@@ -9,8 +9,8 @@ namespace EventBookingApi.Services
         private readonly List<Event> _events = new List<Event>
         {
             new Event { Id = 1, Name = "Past Event", Date = new DateOnly(2025, 4, 10), Location = "Unknown", Capacity = 5},
-            new Event { Id = 2, Name = "Current Event", Date = new DateOnly(2026, 5, 12), Location = "Unknown", Capacity = 15},
-            new Event { Id = 3, Name = "Future Event", Date = new DateOnly(2027, 6, 15), Location = "Unknown", Capacity = 2},
+            new Event { Id = 2, Name = "Current Event", Date = new DateOnly(2026, 5, 15), Location = "Unknown", Capacity = 15},
+            new Event { Id = 3, Name = "Future Event", Date = new DateOnly(2027, 6, 14), Location = "Unknown", Capacity = 2},
             new Event { Id = 4, Name = "Future Event 2", Date = new DateOnly(2028, 7, 13), Location = "Unknown", Capacity = 5},
         };
 

@@ -44,6 +44,30 @@ namespace EventBookingApi.Controllers
         }
 
         /// <summary>
+        /// Returns all bookings by an event's ID.
+        /// </summary>
+        [HttpGet("event/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BookingReadDto>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<BookingReadDto>> GetByEventId(int id)
+        {
+            var bookings = _bookingService.GetByEventId(id);
+            return bookings == null ? NotFound(new { message = "No Bookings found" }) : Ok(_mapper.Map<IEnumerable<BookingReadDto>>(bookings));
+        }
+
+        /// <summary>
+        /// Returns all bookings by a customer's ID.
+        /// </summary>
+        [HttpGet("customer/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BookingReadDto>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<BookingReadDto>> GetByCustomerId(int id)
+        {
+            var bookings = _bookingService.GetByCustomerId(id);
+            return bookings == null ? NotFound(new { message = "No Bookings found" }) : Ok(_mapper.Map<IEnumerable<BookingReadDto>>(bookings));
+        }
+
+        /// <summary>
         /// Adds a new booking.
         /// </summary>
         [HttpPost]
@@ -60,7 +84,7 @@ namespace EventBookingApi.Controllers
 
             if (created.Error != null)
             {
-                if (created.Error.NumberOfTicketsAvailable < 0)
+                if (created.Error.StatusCode == 404)
                     return NotFound();
                 else
                     return Problem(
