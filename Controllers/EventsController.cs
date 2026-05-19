@@ -13,7 +13,7 @@ namespace EventBookingApi.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [EnableRateLimiting("fixed")]
-    [Authorize(AuthenticationSchemes = ApiKeyAuthenticationHandler.SchemeName)]
+    //[Authorize(AuthenticationSchemes = ApiKeyAuthenticationHandler.SchemeName)]
     public class EventsController : ControllerBase
     {
         private readonly IEventService _eventService;
@@ -26,7 +26,7 @@ namespace EventBookingApi.Controllers
             _eventService = eventService;
             _mapper = mapper;
         }
-        
+
         /// <summary>
         /// Returns all events.
         /// </summary>

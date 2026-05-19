@@ -13,7 +13,7 @@ namespace EventBookingApi.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [EnableRateLimiting("fixed")]
-    [Authorize(AuthenticationSchemes = ApiKeyAuthenticationHandler.SchemeName)]
+    //[Authorize(AuthenticationSchemes = ApiKeyAuthenticationHandler.SchemeName)]
     public class BookingsController : ControllerBase
     {
         private readonly IBookingService _bookingService;

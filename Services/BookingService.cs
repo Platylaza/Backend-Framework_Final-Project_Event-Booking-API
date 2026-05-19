@@ -46,6 +46,8 @@ namespace EventBookingApi.Services
 
         public Booking Add(Booking newBooking)
         {
+            throw new Exception("Test Error");
+
             // Get Event
             var eventToBook = _eventService.GetById(newBooking.EventId); 
             if (eventToBook == null)

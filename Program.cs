@@ -49,13 +49,13 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "MyFirstApi",
+        Title = "EventBookingApi",
         Version = "v1",
         Description = "An ASP.NET Core Web API for managing products",
         Contact = new OpenApiContact
         {
             Name = "API Support Team",
-            Email = "support@example.com"
+            Email = "smellfire32@outlook.com"
         }
     });
 });
