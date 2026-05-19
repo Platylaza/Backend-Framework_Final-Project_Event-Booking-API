@@ -6,6 +6,7 @@ using AutoMapper;
 using EventBookingApi.Models;
 using EventBookingApi.DTOs;
 using EventBookingApi.Services;
+using EventBookingApi.Auth;
 
 namespace EventBookingApi.Controllers
 {
@@ -25,10 +26,7 @@ namespace EventBookingApi.Controllers
             _eventService = eventService;
             _mapper = mapper;
         }
-
-        // CRUD :     | Create | Read | Update | Delete
-        // Http OPs : | Post   | Get  | Put    | Delete
-
+        
         /// <summary>
         /// Returns all events.
         /// </summary>

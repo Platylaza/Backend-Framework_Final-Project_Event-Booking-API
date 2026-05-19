@@ -6,6 +6,7 @@ using AutoMapper;
 using EventBookingApi.Models;
 using EventBookingApi.DTOs;
 using EventBookingApi.Services;
+using EventBookingApi.Auth;
 
 namespace EventBookingApi.Controllers
 {
