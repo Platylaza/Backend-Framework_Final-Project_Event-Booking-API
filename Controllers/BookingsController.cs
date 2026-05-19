@@ -1,15 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.RateLimiting;
 using AutoMapper;
 using EventBookingApi.Models;
 using EventBookingApi.DTOs;
 using EventBookingApi.Services;
+using EventBookingApi.Auth;
 
 namespace EventBookingApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+    [EnableRateLimiting("fixed")]
+    [Authorize(AuthenticationSchemes = ApiKeyAuthenticationHandler.SchemeName)]
     public class BookingsController : ControllerBase
     {
         private readonly IBookingService _bookingService;

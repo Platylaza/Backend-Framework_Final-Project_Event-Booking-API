@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 using AutoMapper;
 using EventBookingApi.Models;
 using EventBookingApi.DTOs;
@@ -8,8 +9,10 @@ using EventBookingApi.Services;
 
 namespace EventBookingApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+    [EnableRateLimiting("fixed")]
+    [Authorize(AuthenticationSchemes = ApiKeyAuthenticationHandler.SchemeName)]
     public class CustomersController : ControllerBase
     {
         private readonly ICustomerService _customerService;

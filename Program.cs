@@ -1,5 +1,6 @@
 using EventBookingApi.Services;
 using EventBookingApi.Middleware;
+using EventBookingApi.Auth;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.RateLimiting;
@@ -14,9 +15,11 @@ builder.Services.AddMemoryCache();
 // Rate Limiting
 builder.Services.AddRateLimiter(options =>
 {
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
     options.AddFixedWindowLimiter("fixed", limiterOptions =>
     {
-        limiterOptions.PermitLimit = 10;
+        limiterOptions.PermitLimit = 100;
         limiterOptions.Window = TimeSpan.FromMinutes(1);
         limiterOptions.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
         limiterOptions.QueueLimit = 0;
@@ -69,11 +72,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<RequestLoggingMiddleware>();
-
-app.UseRateLimiter();
 app.UseHttpsRedirection();
 
 app.UseMiddleware<GlobalErrorHandlingMiddleware>();
+app.UseRateLimiter();
 
 app.UseAuthentication();
 app.UseAuthorization();
